@@ -44,13 +44,13 @@
 	    	<div class="sidebar-wrapper">
 	            <ul class="nav">
 	               <li class="active">
-					   <a data-toggle="tab"  href="#Tiro_Parabolico_Fv">
+					   <a data-toggle="tab" onclick="tabTiroGen()">
 	                        <i class="material-icons">dashboard</i>
 	                        <p>Tiro parabolico con Fv</p>
 	                    </a>
 	                </li>
 	                <li>
-	                    <a data-toggle="tab" href="#Euler">
+	                    <a data-toggle="tab" onclick="tabEuler()">
 	                        <i class="material-icons">dashboard</i>
 	                        <p>Metodo Euler</p>
 	                    </a>
@@ -75,53 +75,50 @@
 			</nav>
 
 			<div class="content">
-				
-				<div id="Tiro_Parabolico_Fv" class="container-fluid tab-pane fade in active">
-					<div class="row">
-						<div class="row">		
-							<div class="col-sm-11 ">
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Gravedad</label>
-									<input type="number" class="form-control" id="g" value="10">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">b (Ind. Viscosidad)</label>
-									<input type="number" class="form-control" id="b" value="0.5">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Masa</label>
-									<input type="number" class="form-control" id="m" value="0.3">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Rapidez</label>
-									<input type="number" class="form-control" id="v" value="42">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Angulo</label>
-									<input type="number" class="form-control" id="ang" value="15">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Altura</label>
-									<input type="number" class="form-control" id="h" value="22">
-								</div>
-								<div class="form-group label-floating col-sm-2">
-									<label class="control-label">Salto Tiempo</label>
-									<input type="number" class="form-control" id="tSalto" value="0.05" step="0.01">
-								</div>
-							</div>
-							<div class="col-sm-1 text-center" style="margin-top: 10px;">								
-								<button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="ejViscSimp()">
-									<i class="material-icons">done</i><div class="ripple-container"></div>
-								</button>
-							</div>							
-						</div>						
-						
+				<div class="row">		
+					<div class="col-sm-11 ">
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Gravedad</label>
+							<input type="number" class="form-control" id="g" value="10">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">b (Ind. Viscosidad)</label>
+							<input type="number" class="form-control" id="b" value="0.5">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Masa</label>
+							<input type="number" class="form-control" id="m" value="0.3">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Rapidez</label>
+							<input type="number" class="form-control" id="v" value="42">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Angulo</label>
+							<input type="number" class="form-control" id="ang" value="15">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Altura</label>
+							<input type="number" class="form-control" id="h" value="22">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">Salto Tiempo</label>
+							<input type="number" class="form-control" id="tSalto" value="0.05" step="0.01">
+						</div>
 					</div>
+					<div class="col-sm-1 text-center" style="margin-top: 10px;">								
+						<button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="ejViscSimp()">
+							<i class="material-icons">done</i><div class="ripple-container"></div>
+						</button>
+					</div>							
+				</div>
+				
+				<div id="Tiro_Parabolico_Fv" class="container-fluid">					
 					<div id="Contenedor" style="display:none;">
 						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
 							<li class="active"><a data-toggle="tab" href="#TableTiroSimp">Tabla general</a></li>
 							<li><a data-toggle="tab" href="#compAng1">Comparativa Angulos</a></li>
-							<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						
+							<!--<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						-->
 						</ul>
 						<div class="tab-content">
 							<div id="TableTiroSimp" class="tab-pane fade in active">								
@@ -181,7 +178,7 @@
 												<i class="material-icons">trending_up</i>
 											</div>
 											<div class="card-content">
-												<p class="category">Angulo para altura maxima y alcence minimo</p>
+												<p class="category">Angulo para altura maxima y alcance minimo</p>
 												<h3 id="angStat" class="title"></h3>
 											</div>
 											<div class="card-footer">
@@ -275,7 +272,82 @@
 						</div>
 					</div>
 				</div>
-				<div id="Euler" class="container-fluid tab-pane fade">
+				<div id="Euler" class="container-fluid " style="display: none">
+					<div id="ContenedorEuler">
+						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
+							<li class="active"><a data-toggle="tab" href="#Eulertab">Euler</a></li>
+							<li><a data-toggle="tab" href="#EulerM">Euler Mejorado</a></li>												
+						</ul>
+						<div class="tab-content">
+							<div id="Eulertab" class="tab-pane fade in active">
+								<div id="Euler" class="col-md-12">
+									<div class="card">
+										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
+											<h4 class="title">Euler</h4>
+											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
+										</div>
+										<div class="card-content table-responsive collapse in" id="tabla1">
+									
+											<table id="" class="table">
+												<thead class="text-primary" data-color="green">
+													<th>T</th>
+													<th>X</th>
+													<th>Ea X</th>
+													<th>Er X</th>													
+													<th>Y</th>
+													<th>Ea Y</th>
+													<th>Er Y</th>																									
+													<th>Vx</th>	
+													<th>Ea Vx</th>	
+													<th>Er Vx</th>																								
+													<th>Vy</th>	
+													<th>Ea Vy</th>	
+													<th>Er Vy</th>																							
+												</thead>
+												<tbody id="tableEulerEa">
+													
+												</tbody>
+											</table>
+											
+										</div>
+									</div>
+								</div>
+							</div>						
+							<div id="EulerM" class="tab-pane fade">
+								<div id="EulerMCont" class="col-md-12">
+									<div class="card">
+										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
+											<h4 class="title">Euler Mejorado</h4>
+											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
+										</div>
+										<div class="card-content table-responsive collapse in">
+									
+											<table id="" class="table">
+												<thead class="text-primary" data-color="green">
+													<th>T</th>
+													<th>X</th>
+													<th>Ea X</th>
+													<th>Er X</th>													
+													<th>Y</th>
+													<th>Ea Y</th>
+													<th>Er Y</th>																									
+													<th>Vx</th>	
+													<th>Ea Vx</th>	
+													<th>Er Vx</th>																								
+													<th>Vy</th>	
+													<th>Ea Vy</th>	
+													<th>Er Vy</th>																							
+												</thead>
+												<tbody id="tableEulerM">
+													
+												</tbody>
+											</table>											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 

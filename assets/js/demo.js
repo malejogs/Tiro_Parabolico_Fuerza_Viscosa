@@ -121,9 +121,9 @@ function ejViscSimp(){
     $("#tAngMax2").html(ang_xmax.TVuelo+"s")
     //Estadisticas maximo Tiempo de vuelo
     $("#angStat3").html(ang_ymax.TVuelo+"s")
-    $("#xAngMax3").html(ang_ymax.Angulo+"°")
-    $("#yAngMax3").html((ang_ymax.Xmax).toFixed(4)+"m")
-    $("#tAngMax3").html(ang_ymax.TVuelo+"s")
+    $("#AngMax3").html(ang_ymax.Angulo+"°")
+    $("#xAngMax3").html((ang_ymax.Xmax).toFixed(4)+"m")
+    $("#yAngMax3").html(ang_ymax.TVuelo+"s")
     
     $("#Contenedor").show("slow") 
     ////Inicio Tabla Comparaticion angulos////////////////////////////   
@@ -319,6 +319,88 @@ function ejViscSimp(){
         }
     });
 
+    //////Inicio Euler////////////////////////////////////////////////
+    $("#tableEulerEa").html("")
+    $("#tableEulerEb").html("")
+    initVal()
+    vx=Vix
+    vy=Viy
+    datosEuler=[]    
+    i=0
+        ////Inicio Tabla Euler Ea////////////////////////////        
+    while (y > 0) {                 
+        $("#tableEulerEa").append(' \
+            <tr>\
+                <td>'+t.toFixed(2)+'s</td>\
+                <td>'+x.toFixed(3)+'m</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].x - x).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].x - x)/datosGen1[i].x).toFixed(3))+'</td>\
+                <td>'+y.toFixed(3)+'m</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].y - y).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].y - y)/datosGen1[i].y).toFixed(3))+'</td>\
+                <td>'+vx.toFixed(3)+'m/s</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].vx - vx).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].vx - vx)/datosGen1[i].vx).toFixed(3))+'</td>\
+                <td>'+vy.toFixed(3)+'m/s</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].vy - vy).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].vy - vy)/datosGen1[i].vy).toFixed(3))+'</td>\
+            </tr>\ ');        
+        t=math.add(math.bignumber(t),math.bignumber(tPaso))
+        x=x+tPaso*vx.toFixed(3) 
+        y=y+tPaso*vy.toFixed(3)        
+        vx=vx+tPaso*((-gama)*vx)
+        vy=vy+tPaso*((-gama)*vy+(-g)) 
+        datosEuler.push({"t": parseFloat(t),"x":x,"y":y,"vx":vx, "vy": vy})      
+        i++
+    }  
+        ////FIN Tabla Euler Ea////////////////////////////        
+    //////Fin Euler////////////////////////////////////////////////
+
+    //////Inicio Euler Mejorado////////////////////////////////////////////////
+    $("#tableEulerEa").html("")
+    $("#tableEulerEb").html("")
+    initVal()
+    vx=Vix
+    vy=Viy
+    datosEuler=[]    
+    i=0
+        ////Inicio Tabla Euler Mejorado////////////////////////////        
+    while (y > 0) {                 
+        $("#tableEulerEa").append(' \
+            <tr>\
+                <td>'+t.toFixed(2)+'s</td>\
+                <td>'+x.toFixed(3)+'m</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].x - x).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].x - x)/datosGen1[i].x).toFixed(3))+'</td>\
+                <td>'+y.toFixed(3)+'m</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].y - y).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].y - y)/datosGen1[i].y).toFixed(3))+'</td>\
+                <td>'+vx.toFixed(3)+'m/s</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].vx - vx).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].vx - vx)/datosGen1[i].vx).toFixed(3))+'</td>\
+                <td>'+vy.toFixed(3)+'m/s</td>\
+                <td style="border: 1px solid orange">'+Math.abs((datosGen1[i].vy - vy).toFixed(3))+'</td>\
+                <td style="border: 1px solid orange">'+Math.abs(((datosGen1[i].vy - vy)/datosGen1[i].vy).toFixed(3))+'</td>\
+            </tr>\ ');        
+        t=math.add(math.bignumber(t),math.bignumber(tPaso))
+        x=x+tPaso*vx.toFixed(3) 
+        y=y+tPaso*vy.toFixed(3)        
+        vx=vx+tPaso*((-gama)*vx)
+        vy=vy+tPaso*((-gama)*vy+(-g)) 
+        datosEuler.push({"t": parseFloat(t),"x":x,"y":y,"vx":vx, "vy": vy})      
+        i++
+    }  
+        ////FIN Tabla Euler Ea////////////////////////////        
+    //////Fin Euler////////////////////////////////////////////////
+
 }
 
+function tabTiroGen(){
+    $("#Euler").hide("fast")
+    $("#Tiro_Parabolico_Fv").show("hide")    
+}
 
+function tabEuler(){    
+    $("#Tiro_Parabolico_Fv").hide("fast")
+    $("#Euler").show("hide")
+}
