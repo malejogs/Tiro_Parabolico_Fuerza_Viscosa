@@ -21,7 +21,7 @@
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-	
+
 </head>
 
 <body>
@@ -54,7 +54,7 @@
 	                        <i class="material-icons">dashboard</i>
 	                        <p>Metodo Euler</p>
 	                    </a>
-	                </li>	                
+	                </li>
 	            </ul>
 	    	</div>
 	    </div>
@@ -70,12 +70,12 @@
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="#">Tiro parabolico con fuerza viscosa</a>
-					</div>					
+					</div>
 				</div>
 			</nav>
 
 			<div class="content">
-				<div class="row">		
+				<div class="row">
 					<div class="col-sm-11 ">
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Gravedad</label>
@@ -106,14 +106,14 @@
 							<input type="number" class="form-control" id="tSalto" value="0.05" step="0.01">
 						</div>
 					</div>
-					<div class="col-sm-1 text-center" style="margin-top: 10px;">								
+					<div class="col-sm-1 text-center" style="margin-top: 10px;">
 						<button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="ejViscSimp()">
 							<i class="material-icons">done</i><div class="ripple-container"></div>
 						</button>
-					</div>							
+					</div>
 				</div>
-				
-				<div id="Tiro_Parabolico_Fv" class="container-fluid">					
+
+				<div id="Tiro_Parabolico_Fv" class="container-fluid">
 					<div id="Contenedor" style="display:none;">
 						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
 							<li class="active"><a data-toggle="tab" href="#TableTiroSimp">Tabla general</a></li>
@@ -121,7 +121,7 @@
 							<!--<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						-->
 						</ul>
 						<div class="tab-content">
-							<div id="TableTiroSimp" class="tab-pane fade in active">								
+							<div id="TableTiroSimp" class="tab-pane fade in active">
 								<div class="row">
 								<div class="col-md-7">
 									<div>
@@ -144,8 +144,8 @@
 										<h5>Vy vs T</h5>
 										<canvas id="vyvt_gen1" ></canvas>
 									</div>
-									
-								</div>	
+
+								</div>
 								<div id="ContenedorTabla1" class="col-md-5">
 									<div class="card">
 										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
@@ -162,7 +162,7 @@
 													<th>Vy</th>
 												</thead>
 												<tbody id="tableEjSimp">
-													
+
 												</tbody>
 											</table>
 										</div>
@@ -221,13 +221,13 @@
 												<div class="stats">
 													<p>Angulo: <span id="AngMax3"></span></p>
 													<p>Alcance Maximo (X): <span id="xAngMax3"></span></p>
-													<p>Altura (Y): <span id="yAngMax3"></span></p>													
+													<p>Altura (Y): <span id="yAngMax3"></span></p>
 												</div>
 											</div>
 										</div>
 									</div>
-									
-								</div>								
+
+								</div>
 								<div class="col-md-6">
 									<div>
 										<h5>X Maxima respecto al angulo</h5>
@@ -241,13 +241,13 @@
 										<h5>Tiempo de vuelo respecto al angulo</h5>
 										<canvas id="tAng1" ></canvas>
 									</div>
-								</div>								
-								<div id="ContenedorTabla1" class="col-md-6">									
+								</div>
+								<div id="ContenedorTabla1" class="col-md-6">
 									<div class="card">
 										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tablaCompAng1">
 											<h4 class="title">Tabla comparativa angulos</h4>
 											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span> |   (Click abrir o cerrar)</p>
-										</div>										
+										</div>
 										<div class="card-content table-responsive collapse in" id="tablaCompAng1">
 											<table id="" class="table">
 												<thead class="text-primary">
@@ -259,7 +259,7 @@
 													<th>Vy</th>
 												</thead>
 												<tbody id="TableCompAng1">
-													
+
 												</tbody>
 											</table>
 										</div>
@@ -276,7 +276,7 @@
 					<div id="ContenedorEuler">
 						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
 							<li class="active"><a data-toggle="tab" href="#Eulertab">Euler</a></li>
-							<li><a data-toggle="tab" href="#EulerM">Euler Mejorado</a></li>												
+							<li><a data-toggle="tab" href="#EulerM">Euler Mejorado</a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="Eulertab" class="tab-pane fade in active">
@@ -287,32 +287,32 @@
 											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
 										</div>
 										<div class="card-content table-responsive collapse in" id="tabla1">
-									
+
 											<table id="" class="table">
 												<thead class="text-primary" data-color="green">
 													<th>T</th>
 													<th>X</th>
 													<th>Ea X</th>
-													<th>Er X</th>													
+													<th>Er X</th>
 													<th>Y</th>
 													<th>Ea Y</th>
-													<th>Er Y</th>																									
-													<th>Vx</th>	
-													<th>Ea Vx</th>	
-													<th>Er Vx</th>																								
-													<th>Vy</th>	
-													<th>Ea Vy</th>	
-													<th>Er Vy</th>																							
+													<th>Er Y</th>
+													<th>Vx</th>
+													<th>Ea Vx</th>
+													<th>Er Vx</th>
+													<th>Vy</th>
+													<th>Ea Vy</th>
+													<th>Er Vy</th>
 												</thead>
 												<tbody id="tableEulerEa">
-													
+
 												</tbody>
 											</table>
-											
+
 										</div>
 									</div>
 								</div>
-							</div>						
+							</div>
 							<div id="EulerM" class="tab-pane fade">
 								<div id="EulerMCont" class="col-md-12">
 									<div class="card">
@@ -321,27 +321,27 @@
 											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
 										</div>
 										<div class="card-content table-responsive collapse in">
-									
+
 											<table id="" class="table">
 												<thead class="text-primary" data-color="green">
 													<th>T</th>
 													<th>X</th>
 													<th>Ea X</th>
-													<th>Er X</th>													
+													<th>Er X</th>
 													<th>Y</th>
 													<th>Ea Y</th>
-													<th>Er Y</th>																									
-													<th>Vx</th>	
-													<th>Ea Vx</th>	
-													<th>Er Vx</th>																								
-													<th>Vy</th>	
-													<th>Ea Vy</th>	
-													<th>Er Vy</th>																							
+													<th>Er Y</th>
+													<th>Vx</th>
+													<th>Ea Vx</th>
+													<th>Er Vx</th>
+													<th>Vy</th>
+													<th>Ea Vy</th>
+													<th>Er Vy</th>
 												</thead>
 												<tbody id="tableEulerM">
-													
+
 												</tbody>
-											</table>											
+											</table>
 										</div>
 									</div>
 								</div>
@@ -352,7 +352,7 @@
 			</div>
 
 			<footer class="footer">
-				<div class="container-fluid">				
+				<div class="container-fluid">
 					<p class="copyright pull-right">
 						<i class="material-icons">code</i> with <i class="material-icons">favorite</i> for Alejandro Gonzalez
 					</p>
@@ -383,6 +383,6 @@
 	<script src="assets/js/material-dashboard.js"></script>
 
 	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>	
+	<script src="assets/js/App.js"></script>	
 
 </html>
