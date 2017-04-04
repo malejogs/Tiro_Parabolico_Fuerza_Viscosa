@@ -38,21 +38,23 @@
 			<div class="logo">
 				<a href="" class="simple-text">
 					Simulacion UMNG
+					<br>
+					Ejercicio 6
 				</a>
 			</div>
 
 	    	<div class="sidebar-wrapper">
 	            <ul class="nav">
 	               <li class="active">
-					   <a data-toggle="tab" onclick="tabTiroGen()">
+					   				<a data-toggle="tab" href="#Tiro_Parabolico_Fv" onclick="tabTiroGen()">
 	                        <i class="material-icons">dashboard</i>
-	                        <p>Tiro parabolico con Fv</p>
+	                        <p>Punto 1</p>
 	                    </a>
 	                </li>
 	                <li>
-	                    <a data-toggle="tab" onclick="tabEuler()">
+	                    <a data-toggle="tab" href="#Euler" onclick="tabEuler()">
 	                        <i class="material-icons">dashboard</i>
-	                        <p>Metodo Euler</p>
+	                        <p>Punto 2</p>
 	                    </a>
 	                </li>
 	            </ul>
@@ -69,7 +71,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">Tiro parabolico con fuerza viscosa</a>
+						<a class="navbar-brand" href="#">Tiro parabolico</a>
 					</div>
 				</div>
 			</nav>
@@ -82,279 +84,110 @@
 							<input type="number" class="form-control" id="g" value="10">
 						</div>
 						<div class="form-group label-floating col-sm-2">
-							<label class="control-label">b (Ind. Viscosidad)</label>
-							<input type="number" class="form-control" id="b" value="0.5">
+							<label class="control-label">b1 (Ind. Viscosidad)</label>
+							<input type="number" class="form-control" id="b1" value="0.08">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">b2 (Ind. Viscosidad)</label>
+							<input type="number" class="form-control" id="b2" value="0.04">
 						</div>
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Masa</label>
-							<input type="number" class="form-control" id="m" value="0.3">
+							<input type="number" class="form-control" id="m" value="0.5">
 						</div>
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Rapidez</label>
-							<input type="number" class="form-control" id="v" value="42">
+							<input type="number" class="form-control" id="v" value="50">
 						</div>
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Angulo</label>
-							<input type="number" class="form-control" id="ang" value="15">
+							<input type="number" class="form-control" id="ang" value="42">
 						</div>
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Altura</label>
-							<input type="number" class="form-control" id="h" value="22">
+							<input type="number" class="form-control" id="h" value="40">
 						</div>
 						<div class="form-group label-floating col-sm-2">
 							<label class="control-label">Salto Tiempo</label>
 							<input type="number" class="form-control" id="tSalto" value="0.05" step="0.01">
 						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">ex</label>
+							<input type="number" class="form-control" id="ex" value="0.95" step="0.01">
+						</div>
+						<div class="form-group label-floating col-sm-2">
+							<label class="control-label">ey</label>
+							<input type="number" class="form-control" id="ey" value="0.9" step="0.01">
+						</div>
+
 					</div>
 					<div class="col-sm-1 text-center" style="margin-top: 10px;">
-						<button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="ejViscSimp()">
+						<button type="submit" class="btn btn-white btn-round btn-just-icon" onclick="Ejecutar()">
 							<i class="material-icons">done</i><div class="ripple-container"></div>
 						</button>
 					</div>
 				</div>
 
-				<div id="Tiro_Parabolico_Fv" class="container-fluid">
-					<div id="Contenedor" style="display:none;">
-						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
-							<li class="active"><a data-toggle="tab" href="#TableTiroSimp">Tabla general</a></li>
-							<li><a data-toggle="tab" href="#compAng1">Comparativa Angulos</a></li>
-							<!--<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						-->
-						</ul>
-						<div class="tab-content">
-							<div id="TableTiroSimp" class="tab-pane fade in active">
-								<div class="row">
-								<div class="col-md-7">
-									<div>
-										<h5>X vs Y (Trayectoria)</h5>
-										<canvas id="xvy_gen1" ></canvas>
+				<div class="tab-content">
+					<div id="Tiro_ParabolicoA" class="container-fluid">
+						<div id="Contenedor" >
+							<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
+								<li class="active"><a data-toggle="tab" href="#TableTiroSimp">Tabla general</a></li>
+								<!-- <li><a data-toggle="tab" href="#compAng1">Comparativa Angulos</a></li> -->
+								<!--<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						-->
+							</ul>
+							<div class="tab-content">
+								<div id="TableTiroSimp" class="tab-pane fade in active">
+									<div class="row">
+										<div id="tablaTPAR" class="col-md-7"></div>
 									</div>
-									<div>
-										<h5>X vs T</h5>
-										<canvas id="xvt_gen1" ></canvas>
-									</div>
-									<div>
-										<h5>Y vs T</h5>
-										<canvas id="yvt_gen1" ></canvas>
-									</div>
-									<div>
-										<h5>Vx vs T</h5>
-										<canvas id="vxvt_gen1" ></canvas>
-									</div>
-									<div>
-										<h5>Vy vs T</h5>
-										<canvas id="vyvt_gen1" ></canvas>
-									</div>
+								</div>
+
+								<div id="compAng1" class="tab-pane fade">
 
 								</div>
-								<div id="ContenedorTabla1" class="col-md-5">
-									<div class="card">
-										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
-											<h4 class="title">Tiro parabolico con Fv</h4>
-											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
-										</div>
-										<div class="card-content table-responsive collapse in" id="tabla1">
-											<table id="" class="table">
-												<thead class="text-primary" data-color="green">
-													<th>T</th>
-													<th>X</th>
-													<th>Y</th>
-													<th>Vx</th>
-													<th>Vy</th>
-												</thead>
-												<tbody id="tableEjSimp">
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-								</div>
-							</div>
-							<div id="compAng1" class="tab-pane fade">
-								<div class="row">
-									<div class="col-lg-4 col-md-4 col-sm-6">
-										<div class="card card-stats">
-											<div class="card-header" data-background-color="blue">
-												<i class="material-icons">trending_up</i>
-											</div>
-											<div class="card-content">
-												<p class="category">Angulo para altura maxima y alcance minimo</p>
-												<h3 id="angStat" class="title"></h3>
-											</div>
-											<div class="card-footer">
-												<div class="stats">
-													<p>Altura Maxima (Y): <span id="hAngMax"></span></p>
-													<p>Alcance minimo (X): <span id="xAngMax"></span></p>
-													<p>Tiempo de Vuelo (t): <span id="tAngMax"></span></p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4">
-										<div class="card card-stats">
-											<div class="card-header" data-background-color="green">
-												<i class="material-icons">trending_flat</i>
-											</div>
-											<div class="card-content">
-												<p class="category">Angulo alcance maximo</p>
-												<h3 id="angStat2" class="title"></h3>
-											</div>
-											<div class="card-footer">
-												<div class="stats">
-													<p>Alcance Maximo (X): <span id="xAngMax2"></span></p>
-													<p>Altura (Y): <span id="yAngMax2"></span></p>
-													<p>Tiempo de Vuelo (t): <span id="tAngMax2"></span></p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-4 col-sm-4">
-										<div class="card card-stats">
-											<div class="card-header" data-background-color="purple">
-												<i class="material-icons">timer</i>
-											</div>
-											<div class="card-content">
-												<p class="category">Tiempo maximo de vuelo</p>
-												<h3 id="angStat3" class="title"></h3>
-											</div>
-											<div class="card-footer">
-												<div class="stats">
-													<p>Angulo: <span id="AngMax3"></span></p>
-													<p>Alcance Maximo (X): <span id="xAngMax3"></span></p>
-													<p>Altura (Y): <span id="yAngMax3"></span></p>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								<div class="col-md-6">
-									<div>
-										<h5>X Maxima respecto al angulo</h5>
-										<canvas id="xmaxAng1" ></canvas>
-									</div>
-									<div>
-										<h5>Y Maxima respecto al angulo</h5>
-										<canvas id="ymaxAng1" ></canvas>
-									</div>
-									<div>
-										<h5>Tiempo de vuelo respecto al angulo</h5>
-										<canvas id="tAng1" ></canvas>
-									</div>
-								</div>
-								<div id="ContenedorTabla1" class="col-md-6">
-									<div class="card">
-										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tablaCompAng1">
-											<h4 class="title">Tabla comparativa angulos</h4>
-											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span> |   (Click abrir o cerrar)</p>
-										</div>
-										<div class="card-content table-responsive collapse in" id="tablaCompAng1">
-											<table id="" class="table">
-												<thead class="text-primary">
-													<th>Angulo</th>
-													<th>T. Vuelo</th>
-													<th>X max</th>
-													<th>Y max</th>
-													<th>Vx</th>
-													<th>Vy</th>
-												</thead>
-												<tbody id="TableCompAng1">
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div id="Simul1Cont" class="tab-pane fade">
-								<canvas id="Simul1" ></canvas>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div id="Euler" class="container-fluid " style="display: none">
-					<div id="ContenedorEuler">
-						<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
-							<li class="active"><a data-toggle="tab" href="#Eulertab">Euler</a></li>
-							<li><a data-toggle="tab" href="#EulerM">Euler Mejorado</a></li>
-						</ul>
-						<div class="tab-content">
-							<div id="Eulertab" class="tab-pane fade in active">
-								<div id="Euler" class="col-md-12">
-									<div class="card">
-										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
-											<h4 class="title">Euler</h4>
-											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
-										</div>
-										<div class="card-content table-responsive collapse in" id="tabla1">
 
-											<table id="" class="table">
-												<thead class="text-primary" data-color="green">
-													<th>T</th>
-													<th>X</th>
-													<th>Ea X</th>
-													<th>Er X</th>
-													<th>Y</th>
-													<th>Ea Y</th>
-													<th>Er Y</th>
-													<th>Vx</th>
-													<th>Ea Vx</th>
-													<th>Er Vx</th>
-													<th>Vy</th>
-													<th>Ea Vy</th>
-													<th>Er Vy</th>
-												</thead>
-												<tbody id="tableEulerEa">
+					<div id="Euler" class="container-fluid " style="display: none">
+						<div id="ContenedorEuler" >
+							<ul class="nav nav-tabs nav-justified" style="background: linear-gradient(60deg, #66bb6a, #43a047);">
+								<li class="active"><a data-toggle="tab" href="#eulerpage">Euler</a></li>
+								<li><a data-toggle="tab" href="#eulerMejorado">Euler Mejorado</a></li>
+								<li><a data-toggle="tab" href="#RungeKutta">Runge Kutta</a></li>
+								<!--<li><a data-toggle="tab" href="#Simul1Cont">Simulación</a></li>						-->
+							</ul>
+							<div class="tab-content">
 
-												</tbody>
-											</table>
-
-										</div>
+								<div id="eulerpage" class="tab-pane fade in active">
+									<div class="row">
+										<div id="tablaTPEuler" class="col-md-7"></div>
 									</div>
 								</div>
-							</div>
-							<div id="EulerM" class="tab-pane fade">
-								<div id="EulerMCont" class="col-md-12">
-									<div class="card">
-										<div class="card-header btn btn-info" data-background-color="green" type="button" data-toggle="collapse" data-target="#tabla1">
-											<h4 class="title">Euler Mejorado</h4>
-											<p class="category">Gama (b/m): <span class="gama"></span> | V0x: <span class="vix"></span> | V0y: <span class="viy"></span></p>
-										</div>
-										<div class="card-content table-responsive collapse in">
 
-											<table id="" class="table">
-												<thead class="text-primary" data-color="green">
-													<th>T</th>
-													<th>X</th>
-													<th>Ea X</th>
-													<th>Er X</th>
-													<th>Y</th>
-													<th>Ea Y</th>
-													<th>Er Y</th>
-													<th>Vx</th>
-													<th>Ea Vx</th>
-													<th>Er Vx</th>
-													<th>Vy</th>
-													<th>Ea Vy</th>
-													<th>Er Vy</th>
-												</thead>
-												<tbody id="tableEulerM">
+								<div id="eulerMejorado" class="tab-pane fade">
+									<div class="row">
+										<div id="tablaTPEulerMejorado" class="col-md-7"></div>
+									</div>
+								</div>
 
-												</tbody>
-											</table>
-										</div>
+								<div id="RungeKutta" class="tab-pane fade">
+									<div class="row">
+										<div id="tablaTPRungeKutta" class="col-md-7"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 
 			<footer class="footer">
 				<div class="container-fluid">
 					<p class="copyright pull-right">
-						<i class="material-icons">code</i> with <i class="material-icons">favorite</i> for Alejandro Gonzalez
+						<i class="material-icons">code</i> with <i class="material-icons">favorite</i> for Karen Galvis y Alejandro Gonzalez
 					</p>
 				</div>
 			</footer>
@@ -373,16 +206,8 @@
 
 	<script src="assets/js/math.min.js"></script>
 
-	<!--  Notifications Plugin    -->
-	<!--<script src="assets/js/bootstrap-notify.js"></script>-->
-
-	<!--  Google Maps Plugin    -->
-	<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>-->
-
-	<!-- Material Dashboard javascript methods -->
 	<script src="assets/js/material-dashboard.js"></script>
 
-	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-	<script src="assets/js/App.js"></script>	
+	<script src="./Simulacion.js"></script>
 
 </html>
