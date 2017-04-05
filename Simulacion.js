@@ -206,6 +206,35 @@ function generarTablas(id,titulo,encabezados,datos){
   )
 }
 
+//Genera graficas
+function genGraf(titulo,datos,donde,var1,var2){
+
+  var data=[]
+  data.push(datos.map(function(num) {
+    return {x: num[var1], y: num[var2]}
+  }))
+
+  var chart = new Chart(donde, {
+  type: 'line',
+  data: {
+    datasets: [{
+        label: titulo,
+        data: data[0]
+      }]
+
+  },
+  options: {
+    scales: {
+        xAxes: [{
+            type: 'linear',
+            position: 'bottom'
+        }]
+    }
+  }
+  })
+  return chart
+}
+
 
 
 //Renderiza tablas y graficas de Tiro Parabolico Analitico
@@ -214,7 +243,7 @@ function pageTPA() {
   DatosTPAR=[]
   initVal() // Inicializamos los valores
   r=tiroParabolicoAnalitico() //generamos y guardamos los primeros datos del tiro inicial
-  DatosTPAR.push(r) // agregamos esos datos en la variable de los datos generales
+  DatosTPAR = DatosTPAR.concat(r) // agregamos esos datos en la variable de los datos generales
 
   //Obtenemos los encabezados de las tablas segun los datos generados
   for (var i in r[0]) {
@@ -225,11 +254,32 @@ function pageTPA() {
   for (var i = 0; i < 2; i++) {
     reboteTPA(r)// inicializamos los valores y aplicamos ex y ey para el rebote
     r=tiroParabolicoAnalitico() //generamos y guardamos los primeros datos del tiro inicial
-    DatosTPAR.push(r) // agregamos esos datos en la variable de los datos generales
+    DatosTPAR = DatosTPAR.concat(r) // agregamos esos datos en la variable de los datos generales
     tablas += generarTablas("tablaRebote"+(i+1),"Tiro parabolico con rebote "+(i+1),encabezados,r)//obtenemos el codigo html con el template tablas para generar la tablas
   }
 
   $("#tablaTPAR").html(tablas) //Renderiza las tablas en el DOM del HTML
+
+  //Genero las graficas
+  $('#contGrafTPA').html(`
+    <canvas id="grafTBAxy" height="100%" width="100%"></canvas>
+    <canvas id="grafTBAxe" height="100%" width="100%"></canvas>
+    <canvas id="grafTBAxep" height="100%" width="100%"></canvas>
+    <canvas id="grafTBAxec" height="100%" width="100%"></canvas>
+    `)
+  var contGrafTPAxy = document.getElementById('grafTBAxy').getContext("2d")
+  var GrafTBAxy = genGraf("X vs Y (Trayectoria)",DatosTPAR,contGrafTPAxy,'x','y')
+
+  var contGrafTPAxe = document.getElementById('grafTBAxe').getContext("2d")
+  var GrafTBAxe = genGraf("X vs E",DatosTPAR,contGrafTPAxe,'x','e')
+
+  var contGrafTPAxep = document.getElementById('grafTBAxep').getContext("2d")
+  var GrafTBAxep = genGraf("X vs Ep",DatosTPAR,contGrafTPAxep,'x','ep')
+
+  var contGrafTPAxec = document.getElementById('grafTBAxec').getContext("2d")
+  var GrafTBxecA = genGraf("X vs Ec",DatosTPAR,contGrafTPAxec,'x','ec')
+
+
 }
 
 //Renderiza tablas y graficas de Tiro Parabolico Euler, Euler mejorado y Runge Kutta
@@ -238,7 +288,7 @@ function pageTPEuler() {
   DatosTPEuler=[]
   initVal() // Inicializamos los valores
   r=tiroParabolicoEuler() //generamos y guardamos los primeros datos del tiro inicial
-  DatosTPEuler.push(r) // agregamos esos datos en la variable de los datos generales
+  DatosTPEuler=DatosTPEuler.concat(r) // agregamos esos datos en la variable de los datos generales
 
   //Obtenemos los encabezados de las tablas segun los datos generados
   for (var i in r[0]) {
@@ -250,11 +300,38 @@ function pageTPEuler() {
   for (var i = 0; i < 2; i++) {
     reboteTPA(r)// inicializamos los valores y aplicamos ex y ey para el rebote
     r=tiroParabolicoEuler() //generamos y guardamos los primeros datos del tiro inicial
-    DatosTPEuler.push(r) // agregamos esos datos en la variable de los datos generales
+    DatosTPEuler=DatosTPEuler.concat(r) // agregamos esos datos en la variable de los datos generales
     tablas += generarTablas("tablaEulerRebote"+(i+1),"Tiro parabolico con rebote "+(i+1),encabezados,r)//obtenemos el codigo html con el template tablas para generar la tablas
   }
 
   $("#tablaTPEuler").html(tablas) //Renderiza las tablas en el DOM del HTML
+
+  //Genero las graficas
+  $('#grafTPEuler').html(`
+    <canvas id="grafTPEulerxy" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerxt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEuleryt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerxe" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerxep" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerxec" height="100%" width="100%"></canvas>
+    `)
+  var contGrafTPEulerxy = document.getElementById('grafTPEulerxy').getContext("2d")
+  var grafTPEulerxy = genGraf("X vs Y (Trayectoria)",DatosTPEuler,contGrafTPEulerxy,'x','y')
+
+  var contGrafTPEulerxt = document.getElementById('grafTPEulerxt').getContext("2d")
+  var grafTPEulerxt = genGraf("X vs t (Tratectoria)",DatosTPEuler,contGrafTPEulerxt,'x','t')
+
+  var contGrafTPEuleryt = document.getElementById('grafTPEuleryt').getContext("2d")
+  var grafTPEuleryt = genGraf("Y vs t (Tratectoria)",DatosTPEuler,contGrafTPEuleryt,'y','t')
+
+  var contGrafTPEulerxe = document.getElementById('grafTPEulerxe').getContext("2d")
+  var grafTPEulerxe = genGraf("X vs E",DatosTPEuler,contGrafTPEulerxe,'x','e')
+
+  var contGrafTPEulerxep = document.getElementById('grafTPEulerxep').getContext("2d")
+  var grafTPEulerxep = genGraf("X vs Ep",DatosTPEuler,contGrafTPEulerxep,'x','ep')
+
+  var contGrafTPEulerxec = document.getElementById('grafTPEulerxec').getContext("2d")
+  var grafTPxecA = genGraf("X vs Ec",DatosTPEuler,contGrafTPEulerxec,'x','ec')
 }
 
 //Renderiza tablas y graficas de Tiro Parabolico Euler, Euler mejorado y Runge Kutta
@@ -263,7 +340,7 @@ function pageTPEulerMejorado() {
   DatosTPEulerMejorado=[]
   initVal() // Inicializamos los valores
   r=tiroParabolicoEulerMejorado() //generamos y guardamos los primeros datos del tiro inicial
-  DatosTPEulerMejorado.push(r) // agregamos esos datos en la variable de los datos generales
+  DatosTPEulerMejorado=DatosTPEulerMejorado.concat(r) // agregamos esos datos en la variable de los datos generales
 
   //Obtenemos los encabezados de las tablas segun los datos generados
   for (var i in r[0]) {
@@ -275,12 +352,40 @@ function pageTPEulerMejorado() {
   for (var i = 0; i < 2; i++) {
     reboteTPA(r)// inicializamos los valores y aplicamos ex y ey para el rebote
     r=tiroParabolicoEulerMejorado() //generamos y guardamos los primeros datos del tiro inicial
-    DatosTPEulerMejorado.push(r) // agregamos esos datos en la variable de los datos generales
+    DatosTPEulerMejorado=DatosTPEulerMejorado.concat(r) // agregamos esos datos en la variable de los datos generales
     tablas += generarTablas("tablaEulerMejoradoRebote"+(i+1),"Tiro parabolico con rebote "+(i+1),encabezados,r)//obtenemos el codigo html con el template tablas para generar la tablas
   }
 
   $("#tablaTPEulerMejorado").html(tablas) //Renderiza las tablas en el DOM del HTML
+
+  //Genero las graficas
+  $('#grafTPEulerMejorado').html(`
+    <canvas id="grafTPEulerMejoradoxy" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerMejoradoxt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerMejoradoyt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerMejoradoxe" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerMejoradoxep" height="100%" width="100%"></canvas>
+    <canvas id="grafTPEulerMejoradoxec" height="100%" width="100%"></canvas>
+    `)
+  var contGrafTPEulerMejoradoxy = document.getElementById('grafTPEulerMejoradoxy').getContext("2d")
+  var grafTPEulerMejoradoxy = genGraf("X vs Y (Trayectoria)",DatosTPEulerMejorado,contGrafTPEulerMejoradoxy,'x','y')
+
+  var contGrafTPEulerMejoradoxt = document.getElementById('grafTPEulerMejoradoxt').getContext("2d")
+  var grafTPEulerMejoradoxt = genGraf("X vs t (Tratectoria)",DatosTPEulerMejorado,contGrafTPEulerMejoradoxt,'x','t')
+
+  var contGrafTPEulerMejoradoyt = document.getElementById('grafTPEulerMejoradoyt').getContext("2d")
+  var grafTPEulerMejoradoyt = genGraf("Y vs t (Tratectoria)",DatosTPEulerMejorado,contGrafTPEulerMejoradoyt,'y','t')
+
+  var contGrafTPEulerMejoradoxe = document.getElementById('grafTPEulerMejoradoxe').getContext("2d")
+  var grafTPEulerMejoradoxe = genGraf("X vs E",DatosTPEulerMejorado,contGrafTPEulerMejoradoxe,'x','e')
+
+  var contGrafTPEulerMejoradoxep = document.getElementById('grafTPEulerMejoradoxep').getContext("2d")
+  var grafTPEulerMejoradoxep = genGraf("X vs Ep",DatosTPEulerMejorado,contGrafTPEulerMejoradoxep,'x','ep')
+
+  var contGrafTPEulerMejoradoxec = document.getElementById('grafTPEulerMejoradoxec').getContext("2d")
+  var grafTPxecA = genGraf("X vs Ec",DatosTPEulerMejorado,contGrafTPEulerMejoradoxec,'x','ec')
 }
+
 
 //Renderiza tablas y graficas de Tiro Parabolico Euler, Euler mejorado y Runge Kutta
 function pageTPRungeKutta() {
@@ -288,7 +393,7 @@ function pageTPRungeKutta() {
   DatosTPRungeKutta=[]
   initVal() // Inicializamos los valores
   r=tiroParabolicoRungeKutta() //generamos y guardamos los primeros datos del tiro inicial
-  DatosTPRungeKutta.push(r) // agregamos esos datos en la variable de los datos generales
+  DatosTPRungeKutta=DatosTPRungeKutta.concat(r) // agregamos esos datos en la variable de los datos generales
 
   //Obtenemos los encabezados de las tablas segun los datos generados
   for (var i in r[0]) {
@@ -300,11 +405,38 @@ function pageTPRungeKutta() {
   for (var i = 0; i < 2; i++) {
     reboteTPA(r)// inicializamos los valores y aplicamos ex y ey para el rebote
     r=tiroParabolicoRungeKutta() //generamos y guardamos los primeros datos del tiro inicial
-    DatosTPRungeKutta.push(r) // agregamos esos datos en la variable de los datos generales
+    DatosTPRungeKutta=DatosTPRungeKutta.concat(r) // agregamos esos datos en la variable de los datos generales
     tablas += generarTablas("tablaEulerMejoradoRebote"+(i+1),"Tiro parabolico con rebote "+(i+1),encabezados,r)//obtenemos el codigo html con el template tablas para generar la tablas
   }
 
   $("#tablaTPRungeKutta").html(tablas) //Renderiza las tablas en el DOM del HTML
+
+  //Genero las graficas
+  $('#grafTPRungeKutta').html(`
+    <canvas id="grafTPRungeKuttaxy" height="100%" width="100%"></canvas>
+    <canvas id="grafTPRungeKuttaxt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPRungeKuttayt" height="100%" width="100%"></canvas>
+    <canvas id="grafTPRungeKuttaxe" height="100%" width="100%"></canvas>
+    <canvas id="grafTPRungeKuttaxep" height="100%" width="100%"></canvas>
+    <canvas id="grafTPRungeKuttaxec" height="100%" width="100%"></canvas>
+    `)
+  var contGrafTPRungeKuttaxy = document.getElementById('grafTPRungeKuttaxy').getContext("2d")
+  var grafTPRungeKuttaxy = genGraf("X vs Y (Trayectoria)",DatosTPRungeKutta,contGrafTPRungeKuttaxy,'x','y')
+
+  var contGrafTPRungeKuttaxt = document.getElementById('grafTPRungeKuttaxt').getContext("2d")
+  var grafTPRungeKuttaxt = genGraf("X vs t (Tratectoria)",DatosTPRungeKutta,contGrafTPRungeKuttaxt,'x','t')
+
+  var contGrafTPRungeKuttayt = document.getElementById('grafTPRungeKuttayt').getContext("2d")
+  var grafTPRungeKuttayt = genGraf("Y vs t (Tratectoria)",DatosTPRungeKutta,contGrafTPRungeKuttayt,'y','t')
+
+  var contGrafTPRungeKuttaxe = document.getElementById('grafTPRungeKuttaxe').getContext("2d")
+  var grafTPRungeKuttaxe = genGraf("X vs E",DatosTPRungeKutta,contGrafTPRungeKuttaxe,'x','e')
+
+  var contGrafTPRungeKuttaxep = document.getElementById('grafTPRungeKuttaxep').getContext("2d")
+  var grafTPRungeKuttaxep = genGraf("X vs Ep",DatosTPRungeKutta,contGrafTPRungeKuttaxep,'x','ep')
+
+  var contGrafTPRungeKuttaxec = document.getElementById('grafTPRungeKuttaxec').getContext("2d")
+  var grafTPxecA = genGraf("X vs Ec",DatosTPRungeKutta,contGrafTPRungeKuttaxec,'x','ec')
 }
 
 // Llama y ejecuta las funciones de renderizado
